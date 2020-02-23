@@ -43,7 +43,7 @@ issuesRouter.post('/', (req, res, next) => {
             if (!name || !issueNumber || !publicationDate || !artist) {
                return res.sendStatus(400);
         }
-        const sql = 'INSERT INTO Issue (name, issue_number, publication_date, artist_id, series)id) ' +
+        const sql = 'INSERT INTO Issue (name, issue_number, publication_date, artist_id, series_id) ' +
         'VALUES ($name, $issueNumber, $publicationDate, $artistId, $seriesId)';
         const values = {
             $name: name,
@@ -60,7 +60,7 @@ issuesRouter.post('/', (req, res, next) => {
                 db.get(`SELECT * FROM Issue WHERE Issue.id = ${this.lastID}`,
                 (error, issue) => {
                     res.status(201).json({issue: issue});
-                })
+                });
             }
         })
     }
@@ -83,7 +83,7 @@ issuesRouter.put('/:issueId', (req, res, next) => {
             }
         }
         const sql = 'UPDATE Issue SET name = $name, issue_number = $issueNumber, ' +
-        'publication_date = $publicationDate, artist_id = $artistId) ' +
+        'publication_date = $publicationDate, artist_id = $artistId ' +
         'WHERE Issue.id = $issueId';
         const values = {
             $name: name,
